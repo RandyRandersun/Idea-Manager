@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Idearator</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div id="myModal" class="save-modal">			
+	  <div class="modal-content" id="modalContent">
+	    <label class="modal-label">Title Your New Project: </label>
+	    <input name="window-name" class="save-input-form" placeholder="Project Name" spellcheck= "false" type="text" maxlength="16" required="" autofocus="">
+	    <div class="button-holder">
+		  <button class="cancel-button-modal">Abort</button>
+		  <button class="save-button-modal">Initiate</button>
+	    </div>
+	    <label id="errorText" class="modal-error-label"></label>
+	  </div>			
+    </div>
+    <div id="toolbar" class="top-toolbar">
+	  <button class = "add-project-button"></button>
+	  <input class="search-bar-area" spellcheck="false" maxlength="" value="">
+    </div>
+    <div id="mainContainer" class="main-container"> 
+	  
+	  <div id="leftSidebar" class="left-sidebar" >
+	   
+	  </div>
+	  <div id="rightTextArea" class="right-text-area">
+	  </div>
+	  <div class='left-sidebar-bg-wrapper'>
+	    <div id='leftSidebarBg' class='left-sidebar-bg'>
+	  
+	    </div>
+	  </div>
+    </div>
+	
+	<script src="js/searchResultInstance.js" charset="utf-8"></script>
+    <script src="js/IdeaInstance.js" charset="utf-8"></script>
+    <script src="js/ProjectInstance.js" charset="utf-8"></script>
+    <script src="js/DirectoryInstance.js" charset="utf-8"></script>
+    <script src="js/NotepadInstance.js" charset="utf-8"></script>
+    <script src="js/mainWindow.js" charset="utf-8"></script>
+	
+  </body>
+  
+  <template id="searchResultInstance" class="search-result-instance">
+	 <input readonly class="result-title-text-area" spellcheck="false" value="">
+	 <br>
+	 <textarea readonly class="result-content-text-area" spellcheck="false" wrap = "off" >
+	 </textarea>     
+  </template>
+  
+  <template id="ideaInstance" class="idea-instance-close">
+	<div class='directory-point-wrapper'>
+	  <div class='directory-horizontal-point'>
+	  </div>
+	</div>
+	<a id='open-idea-link' class='open-idea-link' title='Open Tab' href='#' src='' role='link'></a>
+	<button id='deleteNote' class="delete-note-button" ></button>
+  </template>
+  
+  <template id="projectInstance" >
+	<a id='toggle-collapse-link' class="toggle-collapse-link" title='Toggle Collapse View' href='#' src='' role='link' collapsed="true"></a>
+	<button id='addNoteButton' class="add-note-button" ></button>
+	<button id='deleteProjectButton' class="delete-project-button" ></button>
+	<div class='directory-point-wrapper'>
+		<div class='directory-vertical-point'></div>
+		<div class='directory-vertical-point-active'></div>
+	</div>
+	<ul id="ideaContainer" class="idea-container">
+	</ul>
+  </template>
+  
+  <template id="directoryInstance">
+	<div id="project-container">
+	</div>
+  </template>
+  
+  <template id="notepadInstance">
+	<input class="title-text-area" spellcheck="false" maxlength="18" value="">
+	<br>
+	<textarea class="content-text-area" spellcheck="false" wrap = "off" >
+	</textarea>            
+  </template>
+  
+</html>
