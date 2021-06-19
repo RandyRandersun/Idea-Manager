@@ -102,7 +102,6 @@ class NotepadInstance extends HTMLDivElement {
 	
 	//Save the note to the db
 	handleSaveNote(e){
-		console.log('save note');
 		let titleTextArea = this.querySelector(".title-text-area");
 		let titleText = titleTextArea.value.replace(" ","_");
 		titleTextArea.value = titleText;

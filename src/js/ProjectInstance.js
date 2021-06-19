@@ -58,7 +58,7 @@ class ProjectInstance extends HTMLDivElement {
 	setStyleSelected(index){
 		let thisCollapseLink = this.querySelector(".toggle-collapse-link");
 		thisCollapseLink.classList.add('selected-project');
-		thisCollapseLink.style.color = 'Grey';
+		thisCollapseLink.style.color = '#888';
 		thisCollapseLink.style.transition = '';
 		thisCollapseLink.style.textShadow = '2px 2px rgba(255,255,255,.2)';
 		
@@ -67,8 +67,6 @@ class ProjectInstance extends HTMLDivElement {
 		thisVertPointActive.style.opacity = "1";
 		
 		let curVerticalPoint = this.querySelector(".directory-vertical-point");
-		curVerticalPoint.style.boxShadow = "2px 2px Grey";
-		curVerticalPoint.style.opacity = "1";
 		curVerticalPoint.style.boxShadow = "2px 2px #888";
 		curVerticalPoint.style.opacity = '.5';
 		
@@ -86,12 +84,12 @@ class ProjectInstance extends HTMLDivElement {
 			currHorizontalPoint.style.transition = "border-top .5s linear 0s";
 			if(ideaInstances[idea].index === index){
 				curOpenIdea.classList.add('selected-idea')
-				curOpenIdea.style.color = 'Grey';
+				curOpenIdea.style.color = '#888';
 			}
 			else{
 				curOpenIdea.classList.remove('selected-idea');
 				curOpenIdea.style.color = 'White';
-				currHorizontalPoint.style.borderTop = "3px solid Grey";
+				currHorizontalPoint.style.borderTop = "3px solid #888";
 			}
 		}
 	}
@@ -134,7 +132,7 @@ class ProjectInstance extends HTMLDivElement {
 			
 			if( window.collapsedStates[this.projectName] ){
 				currHorizontalPoint.style.borderTop = "3px solid #888";
-				curOpenIdea.style.color = 'Grey';
+				curOpenIdea.style.color = '#888';
 			}
 			else{
 				currHorizontalPoint.style.borderTop = "3px solid #00FFFF";
@@ -198,14 +196,14 @@ class ProjectInstance extends HTMLDivElement {
 		for (var idea in ideaInstances){
 			let currIdeaLink = this.querySelector("#"+ideaInstances[idea].id+" .open-idea-link");
 			currIdeaLink.style.transition = "filter 1s linear .5s,color 1s linear .5s";
-			currIdeaLink.style.filter = "drop-shadow(0 0 .2rem grey)";
+			currIdeaLink.style.filter = "drop-shadow(0 0 .2rem #888)";
 			currIdeaLink.style.color = "#fff";
 			
 			let currHorizontalPoint = this.querySelector('#'+ideaInstances[idea].id+" .directory-horizontal-point");
 			currHorizontalPoint.style.transition = "border-top .5s linear 0s";
 			
 			if(selectedItemExists){
-				currHorizontalPoint.style.borderTop = "3px solid Grey";
+				currHorizontalPoint.style.borderTop = "3px solid #888";
 			}
 			else{
 				currHorizontalPoint.style.borderTop = "3px solid #00FFFF";
@@ -214,7 +212,7 @@ class ProjectInstance extends HTMLDivElement {
 			if(currIdeaLink.classList.contains('selected-idea')){
 				let ideaInstance = this.querySelector("#"+ideaInstances[idea].id);
 				this.setStyleSelected(ideaInstance.index);
-				currIdeaLink.style.color = "Grey";
+				currIdeaLink.style.color = "#888";
 				currHorizontalPoint.style.borderTop = "3px solid rgba(209,36,124,.8)";
 			}
 		}
@@ -272,7 +270,7 @@ class ProjectInstance extends HTMLDivElement {
 				let currIdeaLink = this.querySelector("#"+ideaInstances[idea].id+" #open-idea-link");
 				currIdeaLink.style.filter = "";
 				currIdeaLink.style.transition = "";
-				currIdeaLink.style.color = "Grey";
+				currIdeaLink.style.color = "#888";
 				
 				let currHorizontalPoint = this.querySelector("#"+ideaInstances[idea].id+" .directory-point-wrapper .directory-horizontal-point");
 				currHorizontalPoint.style.borderTop = "3px solid #888888";
@@ -318,10 +316,8 @@ class ProjectInstance extends HTMLDivElement {
 		}
 	}
 	
-	delayedNotepadAppend(newIdeaObj){
-		let rightTextArea = document.getElementById('rightTextArea');
-		rightTextArea.innerHTML = '';
-		rightTextArea.appendChild(new NotepadInstance(this.projectName, newIdeaObj.ideaName, newIdeaObj.ideaText, this.rest.ideas.length-1));
+	delayedNotepadAppend(newIdeaElm){
+		newIdeaElm.handleNotepadSwap();
 	}
 	
 	handleAddNote(){
@@ -360,7 +356,7 @@ class ProjectInstance extends HTMLDivElement {
 		container.style.display = 'block';
 		
 		this.querySelector(".idea-instance-close").className = 'idea-instance';
-		setTimeout(this.delayedNotepadAppend(newIdeaObj), 250);
+		setTimeout(this.delayedNotepadAppend(newIdea), 250);
 	}
 	
 	populateView(){
