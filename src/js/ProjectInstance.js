@@ -57,8 +57,10 @@ class ProjectInstance extends HTMLDivElement {
 	
 	setStyleSelected(index){
 		let thisCollapseLink = this.querySelector(".toggle-collapse-link");
+		let selectedColor = getComputedStyle(thisCollapseLink).getPropertyValue("--selected-idea-shadow");
+		
 		thisCollapseLink.classList.add('selected-project');
-		thisCollapseLink.style.color = '#888';
+		thisCollapseLink.style.color = 'rgba('+selectedColor+', 1 )';
 		thisCollapseLink.style.transition = '';
 		thisCollapseLink.style.textShadow = '2px 2px rgba(255,255,255,.2)';
 		
@@ -67,8 +69,8 @@ class ProjectInstance extends HTMLDivElement {
 		thisVertPointActive.style.opacity = "1";
 		
 		let curVerticalPoint = this.querySelector(".directory-vertical-point");
-		curVerticalPoint.style.boxShadow = "2px 2px #888";
-		curVerticalPoint.style.opacity = '.5';
+		curVerticalPoint.style.boxShadow = "2px 2px rgba("+selectedColor+", 1 )";
+		curVerticalPoint.style.opacity = '0.5';
 		
 		let ideaInstances;
 		if( window.collapsedStates[this.projectName] ){
@@ -84,33 +86,35 @@ class ProjectInstance extends HTMLDivElement {
 			currHorizontalPoint.style.transition = "border-top .5s linear 0s";
 			if(ideaInstances[idea].index === index){
 				curOpenIdea.classList.add('selected-idea')
-				curOpenIdea.style.color = '#888';
+				curOpenIdea.style.color = 'rgba('+selectedColor+', 1 )';
 			}
 			else{
 				curOpenIdea.classList.remove('selected-idea');
 				curOpenIdea.style.color = 'White';
-				currHorizontalPoint.style.borderTop = "3px solid #888";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColor+", 1 )";
 			}
 		}
 	}
 	setStyleNoSelected(){
 		let thisCollapseLink = this.querySelector(".toggle-collapse-link");
+		let selectedColorHighlight = getComputedStyle(thisCollapseLink).getPropertyValue("--collapse-status-open-highlight");
+		let selectedColor = getComputedStyle(thisCollapseLink).getPropertyValue("--selected-idea-shadow");
+		
 		thisCollapseLink.classList.remove('selected-project');
 		thisCollapseLink.style.color = "White";
 		
 		let curVerticalPoint = this.querySelector(".directory-vertical-point");
 		if( !window.collapsedStates[this.projectName] ){
-			thisCollapseLink.style.textShadow = '2px 2px rgba(0,255,255,.5)';
-			curVerticalPoint.style.boxShadow = "2px 2px #00FFFF";
+			thisCollapseLink.style.textShadow = '2px 2px rgba('+selectedColorHighlight+', 0.5 )';
+			curVerticalPoint.style.boxShadow = "2px 2px rgba("+selectedColorHighlight+", 1 )";
 			curVerticalPoint.style.opacity = "1";
 		}
 		else{
 			thisCollapseLink.style.textShadow = '2px 2px rgba(255,255,255,.5)';
-			curVerticalPoint.style.boxShadow = "3px 3px #888888";
+			curVerticalPoint.style.boxShadow = "3px 3px rgba("+selectedColor+", 1 )";
 			curVerticalPoint.style.opacity = ".5";
 		}
 		
-	 
 		let curVerticalPointActive = this.querySelector(".directory-vertical-point-active");	
 		curVerticalPointActive.style.transition = '';
 		curVerticalPointActive.style.opacity = '0';
@@ -131,11 +135,11 @@ class ProjectInstance extends HTMLDivElement {
 			curOpenIdea.classList.remove('selected-idea');
 			
 			if( window.collapsedStates[this.projectName] ){
-				currHorizontalPoint.style.borderTop = "3px solid #888";
-				curOpenIdea.style.color = '#888';
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColor+", 1 )";
+				curOpenIdea.style.color = 'rgba('+selectedColor+', 1 )';
 			}
 			else{
-				currHorizontalPoint.style.borderTop = "3px solid #00FFFF";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColorHighlight+", 1 )";
 				curOpenIdea.style.color = 'White';
 			}
 		}
@@ -167,10 +171,10 @@ class ProjectInstance extends HTMLDivElement {
 		thisVertPoint.style.transition = '';
 		thisVertPoint.style.height = '0px';
 		thisVertPoint.style.animation = '';
-		thisVertPoint.style.transition = "box-shadow .5s linear 0s";
+		thisVertPoint.style.transition = "box-shadow 0.5s linear 0s";
 		
 		
-		this.style.transition = 'all .3s linear';
+		this.style.transition = 'all 0.3s linear';
 		
 		let thisVertPointActive = this.querySelector(".directory-point-wrapper .directory-vertical-point-active");
 		thisVertPointActive.style.height = '0px'; 
@@ -180,40 +184,44 @@ class ProjectInstance extends HTMLDivElement {
 	
 	delayedColor(){
 		let currVerticalPoint = this.querySelector(".directory-point-wrapper .directory-vertical-point");
+		let selectedColorHighlight = getComputedStyle(currVerticalPoint).getPropertyValue("--collapse-status-open-highlight");
+		let selectedColor = getComputedStyle(currVerticalPoint).getPropertyValue("--selected-idea-shadow");
+		let selectedColorAnimate = getComputedStyle(currVerticalPoint).getPropertyValue("--selected-idea-animate");
+		
 		currVerticalPoint.style.transition = "box-shadow .5s linear 0s";
 		currVerticalPoint.style.opacity = "1";
 		
 		let selectedItemExists = (this.querySelector('.selected-idea') !== null);
 		if(!selectedItemExists){
-			currVerticalPoint.style.boxShadow = "2px 2px #00FFFF";
+			currVerticalPoint.style.boxShadow = "2px 2px rgba("+selectedColorHighlight+", 1 )";
 		}
 		
 		let toggleCollapseLink = this.querySelector('.toggle-collapse-link');
 		toggleCollapseLink.style.transition = 'all .5s linear';
-		toggleCollapseLink.style.textShadow = '2px 2px rgba(0,255,255,.5)';
+		toggleCollapseLink.style.textShadow = '2px 2px rgba('+selectedColorHighlight+', 0.5 )';
 		
 		let ideaInstances = Array.from(this.querySelectorAll(".idea-instance"));
 		for (var idea in ideaInstances){
 			let currIdeaLink = this.querySelector("#"+ideaInstances[idea].id+" .open-idea-link");
 			currIdeaLink.style.transition = "filter 1s linear .5s,color 1s linear .5s";
-			currIdeaLink.style.filter = "drop-shadow(0 0 .2rem #888)";
-			currIdeaLink.style.color = "#fff";
+			currIdeaLink.style.filter = "drop-shadow(0 0 .2rem rgba("+selectedColor+", 1 ))";
+			currIdeaLink.style.color = "White";
 			
 			let currHorizontalPoint = this.querySelector('#'+ideaInstances[idea].id+" .directory-horizontal-point");
-			currHorizontalPoint.style.transition = "border-top .5s linear 0s";
+			currHorizontalPoint.style.transition = "border-top 0.5s linear 0s";
 			
 			if(selectedItemExists){
-				currHorizontalPoint.style.borderTop = "3px solid #888";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColor+", 1 )";
 			}
 			else{
-				currHorizontalPoint.style.borderTop = "3px solid #00FFFF";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColorHighlight+", 1 )";
 			}
 			
 			if(currIdeaLink.classList.contains('selected-idea')){
 				let ideaInstance = this.querySelector("#"+ideaInstances[idea].id);
 				this.setStyleSelected(ideaInstance.index);
-				currIdeaLink.style.color = "#888";
-				currHorizontalPoint.style.borderTop = "3px solid rgba(209,36,124,.8)";
+				currIdeaLink.style.color = "rgba("+selectedColor+", 1 )";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColorAnimate+", 0.8 )";
 			}
 		}
 	}
@@ -242,12 +250,14 @@ class ProjectInstance extends HTMLDivElement {
 		let ideaContainerElm = this.querySelector("#ideaContainer");
 		
 		let thisVertPoint = this.querySelector(".directory-point-wrapper .directory-vertical-point");
+		let selectedColor = getComputedStyle(thisVertPoint).getPropertyValue("--selected-idea-shadow");
+
 		if(window.collapsedStates[this.projectName]){
 			this.classList.remove('project-instance-open');
 			this.classList.add('project-instance');
 			
 			thisVertPoint.style.transition = "";
-			thisVertPoint.style.boxShadow = "3px 3px #888888";
+			thisVertPoint.style.boxShadow = "3px 3px rgba("+selectedColor+", 1 )";
 			
 			let stylesheetAnimation = "slideUp 200ms 0ms linear forwards";
 			thisVertPoint.style.animation = stylesheetAnimation;
@@ -270,10 +280,10 @@ class ProjectInstance extends HTMLDivElement {
 				let currIdeaLink = this.querySelector("#"+ideaInstances[idea].id+" #open-idea-link");
 				currIdeaLink.style.filter = "";
 				currIdeaLink.style.transition = "";
-				currIdeaLink.style.color = "#888";
+				currIdeaLink.style.color = "rgba("+selectedColor+", 1 )";
 				
 				let currHorizontalPoint = this.querySelector("#"+ideaInstances[idea].id+" .directory-point-wrapper .directory-horizontal-point");
-				currHorizontalPoint.style.borderTop = "3px solid #888888";
+				currHorizontalPoint.style.borderTop = "3px solid rgba("+selectedColor+", 1 )";
 			
 				ideaInstances[idea].classList.remove('idea-instance');
 				ideaInstances[idea].classList.add('idea-instance-close');
