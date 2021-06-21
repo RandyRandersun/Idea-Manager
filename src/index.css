@@ -3,7 +3,7 @@
 	--selected-idea-base-shadow: 223, 191, 191;
 	--selected-idea-animate: 209, 36, 124;
 	--selected-idea-shadow: 136, 136, 136;
-	--collapse-status-open-highlight: 0, 255, 255;
+	--collapse-status-open-highlight: 36, 209, 120; /*0, 255, 255;*/
 }
 
 /* || GENERAL STYLES */
@@ -47,13 +47,14 @@ input {
 	font-size: 14pt;
 	text-shadow: -2px 0 rgba( var(--selected-idea-animate), 0.9 );
 	color: White;
-	border-bottom: 2px solid White;
+	border-bottom: 2px solid rgba( var(--collapse-status-open-highlight), 0.4 );
+	border-radius: 8px;
 	background: rgba(0,0,0,0);
 }
 
 .search-bar-area:focus {
 	color: White;
-	border-bottom: 2px solid Grey;
+	/*border-bottom: 2px solid Grey;*/
 	outline: none;
 }
 
